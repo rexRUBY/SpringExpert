@@ -23,6 +23,7 @@ public class TodoController {
             @Auth AuthUser authUser,
             @Valid @RequestBody TodoSaveRequest todoSaveRequest
     ) {
+        System.out.println(authUser.getNickname());
         return ResponseEntity.ok(todoService.saveTodo(authUser, todoSaveRequest));
     }
 
