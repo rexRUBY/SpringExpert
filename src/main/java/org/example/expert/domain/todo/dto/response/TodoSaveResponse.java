@@ -10,6 +10,7 @@ public class TodoSaveResponse {
     private final String title;
     private final String contents;
     private final String weather;
+    private final UserResponse manager;
     private final UserResponse user;
 
     public TodoSaveResponse(Long id, String title, String contents, String weather, UserResponse user) {
@@ -17,6 +18,7 @@ public class TodoSaveResponse {
         this.title = title;
         this.contents = contents;
         this.weather = weather;
+        this.manager = user;
         this.user = user;
     }
 }
