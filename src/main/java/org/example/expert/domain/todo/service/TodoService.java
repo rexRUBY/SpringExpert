@@ -71,7 +71,6 @@ public class TodoService {
         }
 
         User user = todo.getUser();
-
         return new TodoResponse(
                 todo.getId(),
                 todo.getTitle(),
