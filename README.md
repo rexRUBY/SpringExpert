@@ -39,4 +39,10 @@ public class User {
 아래 그래프는 각 단계별 평균 조회 속도의 변화입니다.
 
 1. 인덱스 적용 전
+   <img width="1030" alt="스크린샷 2024-10-11 오전 4 33 44" src="https://github.com/user-attachments/assets/f931ea54-6b3c-40a8-81f1-32fc76d6024f">
+   ![image](https://github.com/user-attachments/assets/05e7e880-93d4-49fd-955c-84e980e3ab4b)
+
 2. 인덱스 적용 후
+   <img width="1178" alt="스크린샷 2024-10-11 오전 4 46 50" src="https://github.com/user-attachments/assets/e6c4bf54-658c-402d-8ff3-97ac720d362b">
+   ![image](https://github.com/user-attachments/assets/a80a5205-bb07-4515-90f3-efb5e34a93c3)
+
