@@ -1,9 +1,12 @@
 package org.example.expert.domain.todo.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.client.WeatherClient;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
+import org.example.expert.domain.log.entity.Log;
+import org.example.expert.domain.log.repository.LogRepository;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
@@ -27,9 +30,10 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
+    private final LogRepository logRepository;
 
     @Transactional
-    public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest) {
+    public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest, HttpServletRequest request) {
         User user = User.fromAuthUser(authUser);
 
         String weather = weatherClient.getTodayWeather();
@@ -41,6 +45,21 @@ public class TodoService {
                 user
         );
         Todo savedTodo = todoRepository.save(newTodo);
+
+        String ipAddress = request.getRemoteAddr();
+        // IPv6-mapped IPv4 형식인지 확인
+        if (ipAddress != null && ipAddress.startsWith("::ffff:")) {
+            // IPv4 부분만 추출
+            ipAddress = ipAddress.substring(7);
+        }
+
+        Log log = new Log(
+                user.getId(),
+                savedTodo.getId(),
+                "새로운 Todo가 저장되었습니다.",
+                ipAddress
+        );
+        logRepository.save(log);
 
         return new TodoSaveResponse(
                 savedTodo.getId(),
